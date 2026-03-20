@@ -5,6 +5,7 @@ import EntryManager from './EntryManager'
 import ForecastChart from './ForecastChart'
 import WarningPanel from './WarningPanel'
 import AiAdvisor from './AiAdvisor'
+import RetirementEstimator from './RetirementEstimator'
 
 const DEMO_ENTRIES = [
   { id: '1', name: 'Salary', amount: 5000, type: 'income', frequency: 'monthly', startDate: new Date().toISOString().slice(0,10), endDate: '' },
@@ -100,6 +101,9 @@ export default function App() {
         <div className="bg-gray-50 rounded-2xl border border-gray-100 p-4">
           <EntryManager entries={entries} onChange={setEntries} />
         </div>
+
+        {/* Retirement Estimator */}
+        <RetirementEstimator initialBalance={initialBalance} />
 
         {/* AI Advisor */}
         <AiAdvisor financialContext={{
