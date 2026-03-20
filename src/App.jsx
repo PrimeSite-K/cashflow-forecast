@@ -103,7 +103,7 @@ export default function App() {
         </div>
 
         {/* Retirement Estimator */}
-        <RetirementEstimator initialBalance={initialBalance} />
+        <RetirementEstimator />
 
         {/* AI Advisor */}
         <AiAdvisor financialContext={{

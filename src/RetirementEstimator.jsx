@@ -1,14 +1,12 @@
 import { useState } from 'react'
 
-export default function RetirementEstimator({ initialBalance }) {
+export default function RetirementEstimator() {
+  const [currentBalance, setCurrentBalance] = useState(200000)
   const [monthlyContrib, setMonthlyContrib] = useState(800)
   const [years, setYears] = useState(8)
 
-  const currentBalance = initialBalance ?? 0
-
   // 0% interest — pure linear accumulation (no compounding)
-  const annualContrib = monthlyContrib * 12
-  const newAccumulated = annualContrib * years
+  const newAccumulated = monthlyContrib * 12 * years
   const total = currentBalance + newAccumulated
 
   return (
@@ -18,7 +16,18 @@ export default function RetirementEstimator({ initialBalance }) {
         <p className="text-xs text-gray-400 mt-0.5">Personal pension account · 0% interest · no compounding</p>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <div>
+          <label className="text-xs text-gray-500 font-medium">Current Pension Balance ($)</label>
+          <input
+            type="number" min="0" step="1000"
+            className="mt-1 w-full text-xl font-bold text-gray-800 outline-none border-b border-gray-200 pb-1"
+            value={currentBalance}
+            onChange={e => setCurrentBalance(Math.max(0, parseFloat(e.target.value) || 0))}
+          />
+          <p className="text-xs text-gray-400 mt-1">Existing pension account balance</p>
+        </div>
+
         <div>
           <label className="text-xs text-gray-500 font-medium">Monthly Contribution ($)</label>
           <input
@@ -45,7 +54,7 @@ export default function RetirementEstimator({ initialBalance }) {
       {/* Result breakdown */}
       <div className="bg-gray-50 rounded-xl p-4 space-y-3">
         <div className="flex justify-between text-sm">
-          <span className="text-gray-500">Current balance</span>
+          <span className="text-gray-500">Current pension balance</span>
           <span className="font-medium text-gray-800">${currentBalance.toLocaleString()}</span>
         </div>
         <div className="flex justify-between text-sm">
